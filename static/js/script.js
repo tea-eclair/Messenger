@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var chat = document.getElementById('chat');
     var messageInput = document.getElementById('message');
     var sendButton = document.getElementById('send-button');
+    var usernameInput = document.getElementById('username');
 
     sendButton.addEventListener('click', function () {
         sendMessage();
@@ -9,7 +10,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Отправка сообщения на сервер
     function sendMessage() {
+        console.log('sendMessage function called');
         var message = messageInput.value.trim();
+        var username = usernameInput.value.trim();
         if (message !== '') {
             fetch('/send', {
                 method: 'POST',
@@ -44,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Отображение сообщения в чате
     function appendMessage(message) {
         var messageDiv = document.createElement('div');
-        messageDiv.textContent = message;
+        messageDiv.textContent = message.username + ': ' + message.message;
         chat.appendChild(messageDiv);
         
     }
