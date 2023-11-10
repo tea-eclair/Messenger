@@ -1,29 +1,27 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var chat = document.getElementById('chat');
+    var usernameInput = document.getElementById('username');
     var messageInput = document.getElementById('message');
     var sendButton = document.getElementById('send-button');
-    var usernameInput = document.getElementById('username');
 
     sendButton.addEventListener('click', function () {
         sendMessage();
     });
 
-    // Отправка сообщения на сервер
     function sendMessage() {
-        console.log('sendMessage function called');
-        var message = messageInput.value.trim();
         var username = usernameInput.value.trim();
+        var message = messageInput.value.trim();
+
         if (message !== '') {
             fetch('/send', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ message: message })
+                body: JSON.stringify({ username: username, message: message }),
             })
             .then(response => response.json())
             .then(data => {
-                // Обработка ответа от сервера, если необходимо
+                // Handle the server's response, if needed
                 updateChat();
             });
             messageInput.value = '';
